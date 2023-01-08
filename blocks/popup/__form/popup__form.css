@@ -1,0 +1,12 @@
+.popup__form {
+  margin: 54px 36px 37px 36px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 610px) {
+  .popup__edit {
+    margin: 25px 22px;
+  }
+}
+

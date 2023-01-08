@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Место Россия</title>
+  <link rel="stylesheet" href="./pages/index.css">
+</head>
+
+<body class="body">
+  <div class="page">
+    <header class="header">
+      <div class="header__logo"></div>
+    </header>
+    <section class="profile">
+      <div class="profile__user">
+        <img class="profile__image" src="./images/jik.jpg" alt="Изображение профиля">
+        <div class="profile__info">
+          <div class="profile__editing">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <button class="profile__edit-button" type="button"></button>
+          </div>
+          <p class="profile__profession">Исследователь океана</p>
+        </div>
+      </div>
+      <button class="profile__add-button" type="button"></button>
+    </section>
+  </div>
+  <main class="content">
+
+    <section class="elements">
+      <ul class="elements__container">
+        <li>
+          <figure class="element">
+            <img class="element__image" src="./images/rostov.jpeg" alt="Ночной Ростов-на-Дону">
+            <figcaption class="element__caption">
+              <p class="element__name">Ростов-на-Дону</p> <button class="element__button element__button_active" type="button"></button>
+            </figcaption>
+          </figure>
+        </li>
+
+        <li>
+          <figure class="element">
+            <img class="element__image" src="./images/azov.jpg" alt="Азов">
+            <figcaption class="element__caption">
+              <p class="element__name">Азов</p> <button class="element__button element__button_active" type="button"></button>
+            </figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure class="element">
+            <img class="element__image" src="./images/Gukovo.jpg" alt="Гуково">
+            <figcaption class="element__caption">
+              <p class="element__name">Гуково</p> <button class="element__button element__button_active" type="button"></button>
+            </figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure class="element">
+            <img class="element__image" src="./images/Novocherkassk.jpg" alt="Новочеркаск">
+            <figcaption class="element__caption">
+              <p class="element__name">Новочеркаск</p> <button class="element__button element__button_active" type="button"></button>
+            </figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure class="element">
+            <img class="element__image" src="./images/shahty.png" alt="Шахты">
+            <figcaption class="element__caption">
+              <p class="element__name">Шахты</p> <button class="element__button element__button_active" type="button"></button>
+            </figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure class="element">
+            <img class="element__image" src="./images/taganrog.jpg" alt="Таганрог">
+            <figcaption class="element__caption">
+              <p class="element__name">Таганрог</p> <button class="element__button element__button_active" type="button"></button>
+            </figcaption>
+          </figure>
+        </li>
+      </ul>
+    </section>
+  </main>
+  <footer class="footer">
+    <p class="footer__copyright">&copy; 2022 MarkusRnD</p>
+  </footer>
+  <div class="popup">
+    <div class="popup__profile">
+      <h2 class="popup__edit">Редактировать профиль</h2>
+      <button class="popup__close-button" type="button"></button>
+      <form class="popup__form" name="edit">
+        <input class="popup__input-name" name="name" type="text" placeholder="Имя пользователя">
+        <input class="popup__input-profession" name="profession" type="text" placeholder="Профессия">
+        <button class="popup__save-button" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
+  <script src='./scripts/scripts.js'></script>
+</body>
+
+</html>
