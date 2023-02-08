@@ -19,6 +19,8 @@ const cardTemplate = document
   .querySelector(".template")
   .content.querySelector(".element");
 
+
+
 function createCard(item) {
   const card = cardTemplate.cloneNode(true);
   const imgTemplate = card.querySelector(".element__image");
