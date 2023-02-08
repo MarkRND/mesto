@@ -1,4 +1,5 @@
-const buttonCloseList = document.querySelectorAll(".popup__close-button");
+const popups = document.querySelectorAll(".popup");
+const buttonClose = document.querySelectorAll(".popup__close-button");
 const popupEdit = document.querySelector(".popup_mode_edit");
 const nameArea = document.querySelector(".profile__name");
 const jobArea = document.querySelector(".profile__profession");
@@ -18,8 +19,6 @@ const popupFormLink = popupAddForm.elements.link;
 const cardTemplate = document
   .querySelector(".template")
   .content.querySelector(".element");
-
-
 
 function createCard(item) {
   const card = cardTemplate.cloneNode(true);
@@ -42,7 +41,7 @@ function createCard(item) {
 openImage = (item) => {
   popupImg.src = item.link;
   popupCaption.textContent = item.name;
-  popupCaption.alt = item.name;
+  popupImg.alt = item.name;
   openPopup(popupOpenImg);
 };
 
@@ -51,9 +50,8 @@ const renderCards = (item) => {
   itemsCard.prepend(cardItem);
 };
 // Добавление массива карточек
-initialCards.reverse().forEach(function (item) {
-  renderCards(item);
-});
+initialCards.reverse().forEach(renderCards);
+
 // добавление карточки
 const addNewCard = (evt) => {
   evt.preventDefault();
@@ -64,9 +62,7 @@ const addNewCard = (evt) => {
   renderCards(newCard);
   closePopup(popupAdd);
   popupAddForm.reset();
-  hidingRedLine();
-  validRedLine();
-  Validation(popupAdd);
+  hideErrors();
 };
 
 popupAddForm.addEventListener("submit", addNewCard);
@@ -76,80 +72,62 @@ function editPopupOpen() {
   nameUser.value = nameArea.textContent;
   professionUser.value = jobArea.textContent;
   openPopup(popupEdit);
-  popupEditForm.reset();
-  hidingRedLine();
-  validRedLine();
-  Validation(popupEdit);
+  hideErrors();
 }
 
-function formEditSubmit(evt) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   nameArea.textContent = nameUser.value;
   jobArea.textContent = professionUser.value;
   closePopup(popupEdit);
 }
-popupEditForm.addEventListener("submit", formEditSubmit);
+popupEditForm.addEventListener("submit", handleProfileFormSubmit);
 
 // закрытие popup
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
+  document.removeEventListener("keydown", closeByEscape);
 }
 // открытие popup
 function openPopup(popup) {
   popup.classList.add("popup_opened");
+  document.addEventListener("keydown", closeByEscape);
 }
 
-buttonCloseList.forEach((btn) => {
-  const popup = btn.closest(".popup");
-  btn.addEventListener("click", () => closePopup(popup));
-});
-
-const cardAddOpen = () => {
+const openAddCard = () => {
   openPopup(popupAdd);
 };
 
 profileEditBtn.addEventListener("click", editPopupOpen);
-profileAddBtn.addEventListener("click", cardAddOpen);
+profileAddBtn.addEventListener("click", openAddCard);
 
-// закрытие по оверлею
-document.addEventListener("click", (evt) => {
-  if (evt.target.classList.contains("popup")) {
-    closePopup(evt.target);
-  }
-});
-// закрытие по Esk
-document.addEventListener("keydown", function (evt) {
-  const popupEsc = Array.from(document.querySelectorAll(".popup"));
-  popupEsc.forEach((popupElement) => {
-    if (evt.key === "Escape") {
-      closePopup(popupElement);
+// закрытие попапа по оверлей и кресту
+popups.forEach((popup) => {
+  popup.addEventListener("mousedown", (evt) => {
+    if (evt.target.classList.contains("popup__close-button")) {
+      closePopup(popup);
+    }
+    if (evt.target.classList.contains("popup_opened")) {
+      closePopup(popup);
     }
   });
 });
 
-// красная линия при ошибке
-function validRedLine() {
-  const inputs = Array.from(document.querySelectorAll(".popup__input"));
-  inputs.forEach((input) => {
-    input.classList.remove("popup__input_mode_error");
-  });
+function closeByEscape(evt) {
+  if (evt.key === "Escape") {
+    const openPopup = document.querySelector(".popup_opened");
+    closePopup(openPopup);
+  }
 }
 
-// скрытие красной линии ошибки
-function hidingRedLine() {
+// функции очистки от ошибок
+function hideErrors() {
+  const inputs = Array.from(document.querySelectorAll(".popup__input"));
   const errorInput = Array.from(
     document.querySelectorAll(".popup__input-error")
   );
   errorInput.forEach((errorElement) => (errorElement.textContent = ""));
-}
-
-//активация кнопки при успешной валидации
-function activationPopupButton(item) {
-  const popupButton = Array.from(
-    document.querySelectorAll(".popup__save-button")
-  );
-  popupButton.forEach((buttonElement) => {
-    buttonElement.setAttribute("disabled", true);
-    buttonElement.classList.add(item.inactiveButtonClass);
+  inputs.forEach((input) => {
+    input.classList.remove("popup__input_mode_error");
   });
 }
