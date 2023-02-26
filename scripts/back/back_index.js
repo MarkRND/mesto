@@ -1,8 +1,5 @@
-import { FormValidator } from "./formValidator.js";
-import { Card } from "./card.js";
-import { initialCards } from "./pattern-cards.js";
-
 const popups = document.querySelectorAll(".popup");
+const buttonClose = document.querySelectorAll(".popup__close-button");
 const popupEdit = document.querySelector(".popup_mode_edit");
 const nameArea = document.querySelector(".profile__name");
 const jobArea = document.querySelector(".profile__profession");
@@ -19,39 +16,44 @@ const professionUser = popupEditForm.elements.profession;
 const popupAddForm = document.forms.popupAdd;
 const popupFormName = popupAddForm.elements.title;
 const popupFormLink = popupAddForm.elements.link;
-const settings = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__save-button",
-  inactiveButtonClass: "popup__save-button_disabled",
-  inputErrorClass: "popup__input_mode_error",
-  errorClass: "popup__input-error_visible",
-};
-const validatorPopupEditForm = new FormValidator(settings, popupEditForm);
-const validatorPopupAddForm = new FormValidator(settings, popupAddForm);
+const cardTemplate = document
+  .querySelector(".template")
+  .content.querySelector(".element");
 
-// валидация Popup
-validatorPopupEditForm.enableValidation(settings);
-validatorPopupAddForm.enableValidation(settings);
+function createCard(item) {
+  const card = cardTemplate.cloneNode(true);
+  const imgTemplate = card.querySelector(".element__image");
+  const nameTemplate = card.querySelector(".element__name");
+  nameTemplate.textContent = item.name;
+  imgTemplate.src = item.link;
+  imgTemplate.alt = item.name;
+  imgTemplate.addEventListener("click", () => openImage(item));
+  card.querySelector(".element__button").addEventListener("click", (evt) => {
+    evt.target.classList.toggle("element__button_active");
+  });
+  card.querySelector(".element__basket").addEventListener("click", (evt) => {
+    evt.target.closest(".element").remove();
+  });
+  return card;
+}
 
 // открытие изображения в попапе
-function openImage(item) {
+openImage = (item) => {
   popupImg.src = item.link;
   popupCaption.textContent = item.name;
   popupImg.alt = item.name;
   openPopup(popupOpenImg);
-}
+};
 
-function renderCards(item) {
-  const card = new Card(item, ".template", openImage);
-  const cardItem = card.createCard();
+const renderCards = (item) => {
+  const cardItem = createCard(item);
   itemsCard.prepend(cardItem);
-}
-
+};
+// Добавление массива карточек
 initialCards.reverse().forEach(renderCards);
 
 // добавление карточки
-function addNewCard(evt) {
+const addNewCard = (evt) => {
   evt.preventDefault();
   const newCard = {
     name: popupFormName.value,
@@ -61,7 +63,7 @@ function addNewCard(evt) {
   closePopup(popupAdd);
   popupAddForm.reset();
   hideErrors();
-}
+};
 
 popupAddForm.addEventListener("submit", addNewCard);
 
@@ -92,9 +94,9 @@ function openPopup(popup) {
   document.addEventListener("keydown", closeByEscape);
 }
 
-function openAddCard() {
+const openAddCard = () => {
   openPopup(popupAdd);
-}
+};
 
 profileEditBtn.addEventListener("click", editPopupOpen);
 profileAddBtn.addEventListener("click", openAddCard);

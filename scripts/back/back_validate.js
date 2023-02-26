@@ -1,3 +1,5 @@
+
+
 // Включение стилизации
 const showInputError = (formElement, inputElement, errorMessage, settings) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
