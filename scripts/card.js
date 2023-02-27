@@ -22,6 +22,11 @@ export class Card {
     this._nameTemplate.textContent = this._item.name;
     this._imgTemplate.src = this._item.link;
     this._imgTemplate.alt = this._item.name;
+    this._setEventListeners();
+    return this._card;
+  }
+
+  _setEventListeners() {
     this._imgTemplate.addEventListener("click", () =>
       this._openImage(this._item)
     );
@@ -35,6 +40,5 @@ export class Card {
       .addEventListener("click", (evt) => {
         evt.target.closest(".element").remove();
       });
-    return this._card;
   }
 }

@@ -1,5 +1,5 @@
-import { FormValidator } from "./formValidator.js";
-import { Card } from "./card.js";
+import { FormValidator } from "./FormValidator.js";
+import { Card } from "./Card.js";
 import { initialCards } from "./pattern-cards.js";
 
 const popups = document.querySelectorAll(".popup");
@@ -31,8 +31,8 @@ const validatorPopupEditForm = new FormValidator(settings, popupEditForm);
 const validatorPopupAddForm = new FormValidator(settings, popupAddForm);
 
 // валидация Popup
-validatorPopupEditForm.enableValidation(settings);
-validatorPopupAddForm.enableValidation(settings);
+validatorPopupEditForm.enableValidation();
+validatorPopupAddForm.enableValidation();
 
 // открытие изображения в попапе
 function openImage(item) {
@@ -42,9 +42,13 @@ function openImage(item) {
   openPopup(popupOpenImg);
 }
 
+function createCard(item) {
+  const cardElement = new Card(item, ".template", openImage);
+  return cardElement.createCard();
+}
+
 function renderCards(item) {
-  const card = new Card(item, ".template", openImage);
-  const cardItem = card.createCard();
+  const cardItem = createCard(item);
   itemsCard.prepend(cardItem);
 }
 
@@ -60,17 +64,15 @@ function addNewCard(evt) {
   renderCards(newCard);
   closePopup(popupAdd);
   popupAddForm.reset();
-  hideErrors();
 }
 
 popupAddForm.addEventListener("submit", addNewCard);
 
 // редактирование профиля
-function editPopupOpen() {
+function openProfilePopup() {
   nameUser.value = nameArea.textContent;
   professionUser.value = jobArea.textContent;
   openPopup(popupEdit);
-  hideErrors();
 }
 
 function handleProfileFormSubmit(evt) {
@@ -96,8 +98,15 @@ function openAddCard() {
   openPopup(popupAdd);
 }
 
-profileEditBtn.addEventListener("click", editPopupOpen);
-profileAddBtn.addEventListener("click", openAddCard);
+profileEditBtn.addEventListener("click", () => {
+  openProfilePopup();
+  validatorPopupEditForm.resetValidation();
+});
+
+profileAddBtn.addEventListener("click", () => {
+  openAddCard();
+  validatorPopupAddForm.resetValidation();
+});
 
 // закрытие попапа по оверлей и кресту
 popups.forEach((popup) => {
@@ -116,16 +125,4 @@ function closeByEscape(evt) {
     const openPopup = document.querySelector(".popup_opened");
     closePopup(openPopup);
   }
-}
-
-// функции очистки от ошибок
-function hideErrors() {
-  const inputs = Array.from(document.querySelectorAll(".popup__input"));
-  const errorInput = Array.from(
-    document.querySelectorAll(".popup__input-error")
-  );
-  errorInput.forEach((errorElement) => (errorElement.textContent = ""));
-  inputs.forEach((input) => {
-    input.classList.remove("popup__input_mode_error");
-  });
 }

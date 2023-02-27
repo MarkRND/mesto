@@ -72,7 +72,6 @@ function editPopupOpen() {
   nameUser.value = nameArea.textContent;
   professionUser.value = jobArea.textContent;
   openPopup(popupEdit);
-  hideErrors();
 }
 
 function handleProfileFormSubmit(evt) {
