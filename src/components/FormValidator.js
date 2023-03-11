@@ -45,11 +45,11 @@ export class FormValidator {
       this._submitButtonSelector
     );
     this._toggleButtonState();
-    this._formElement.addEventListener("reset", () => {
-      setTimeout(() => {
-        this._toggleButtonState();
-      }, 0);
-    });
+    // this._formElement.addEventListener("reset", () => {
+    //   setTimeout(() => {
+    //     this._toggleButtonState();
+    //   }, 0);
+    // });
     this._inputs.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         this._checkInputValidity(inputElement);

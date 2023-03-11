@@ -1,26 +1,26 @@
 export const initialCards = [
     {
       name: "Ростов-на-Дону",
-      link: "./images/rostov.jpeg",
+      link: "./images/card/rostov.jpeg",
     },
     {
       name: "Азов",
-      link: "./images/azov.jpg",
+      link: "./images/card/azov.jpg",
     },
     {
       name: "Гуково",
-      link: "./images/Gukovo.jpg",
+      link: "./images/card/Gukovo.jpg",
     },
     {
       name: "Новочеркаск",
-      link: "./images/Novocherkassk.jpg",
+      link: "./images/card/Novocherkassk.jpg",
     },
     {
       name: "Шахты",
-      link: "./images/shahty.png",
+      link: "./images/card/shahty.png",
     },
     {
       name: "Таганрог",
-      link: "./images/taganrog.jpg",
+      link: "./images/card/taganrog.jpg",
     },
   ];

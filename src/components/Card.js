@@ -1,8 +1,8 @@
 export class Card {
-  constructor(item, templateSelector, openImage) {
+  constructor(item, templateSelector, handleCardClick) {
     this._item = item;
     this._templateSelector = templateSelector;
-    this._openImage = openImage;
+    this._handleCardClick = handleCardClick;
   }
 
   // получить шаблон карточки
@@ -27,9 +27,10 @@ export class Card {
   }
 
   _setEventListeners() {
-    this._imgTemplate.addEventListener("click", () =>
-      this._openImage(this._item)
-    );
+    this._imgTemplate.addEventListener("click", () => {
+      this._handleCardClick(this._item);
+    });
+
     this._card
       .querySelector(".element__button")
       .addEventListener("click", (evt) => {
