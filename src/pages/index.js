@@ -35,7 +35,7 @@ function handleCardClick(item) {
   openImage.open(item);
 }
 
-const userInfo = new UserInfo({nameSelector : profileInputName, jobSelector : profileInputProfession});
+const userInfo = new UserInfo(profileInputName, profileInputProfession);
 
 const handleFormEditSubmit = (input) => {
   userInfo.setUserInfo(input.name, input.profession);
@@ -57,7 +57,6 @@ function createCard(item) {
 }
 const cardsList = new Section(
   {
-    items: initialCards,
     renderer: (item) => {
       const cardItem = createCard(item);
       itemsCard.prepend(cardItem);
@@ -65,7 +64,7 @@ const cardsList = new Section(
   },
   ".elements"
 );
-cardsList.renderer();
+cardsList.renderer(initialCards);
 
 function handleFormAddSubmit(item) {
   const newCard = createCard(item);
