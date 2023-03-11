@@ -19,6 +19,8 @@ export class Card {
     this._card = this._getTemplate();
     this._imgTemplate = this._card.querySelector(".element__image");
     this._nameTemplate = this._card.querySelector(".element__name");
+    this._cardBasket = this._card.querySelector(".element__basket");
+    this._cardLiKe = this._card.querySelector(".element__button");
     this._nameTemplate.textContent = this._item.name;
     this._imgTemplate.src = this._item.link;
     this._imgTemplate.alt = this._item.name;
@@ -26,20 +28,20 @@ export class Card {
     return this._card;
   }
 
+  _likeCard = () => {
+    this._cardLiKe.classList.toggle("element__button_active");
+  };
+
+  _basketCard = () => {
+    this._card.remove();
+    this._card = null;
+  };
+
   _setEventListeners() {
     this._imgTemplate.addEventListener("click", () => {
       this._handleCardClick(this._item);
     });
-
-    this._card
-      .querySelector(".element__button")
-      .addEventListener("click", (evt) => {
-        evt.target.classList.toggle("element__button_active");
-      });
-    this._card
-      .querySelector(".element__basket")
-      .addEventListener("click", (evt) => {
-        evt.target.closest(".element").remove();
-      });
+    this._cardLiKe.addEventListener("click", this._likeCard);
+    this._cardBasket.addEventListener("click", this._basketCard);
   }
 }

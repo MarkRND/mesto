@@ -35,7 +35,7 @@ function handleCardClick(item) {
   openImage.open(item);
 }
 
-const userInfo = new UserInfo(profileInputName, profileInputProfession);
+const userInfo = new UserInfo({nameSelector : profileInputName, jobSelector : profileInputProfession});
 
 const handleFormEditSubmit = (input) => {
   userInfo.setUserInfo(input.name, input.profession);
