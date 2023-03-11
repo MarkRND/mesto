@@ -18,7 +18,7 @@
 10. Произвели сборку с помощью webpack
     
 
-<img src="images/mesto.jpg">
+<img src="/src/images/mesto.jpg">
 
 [Проект на Github](https://markrnd.github.io/mesto/)
 
