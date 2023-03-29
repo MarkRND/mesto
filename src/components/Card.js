@@ -29,7 +29,7 @@ export class Card {
 
   // добавляем данные
 
-  basketCard = () => {
+  deleteOldCard = () => {
     this._card.remove();
     this._card = null;
   };

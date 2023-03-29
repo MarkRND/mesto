@@ -27,8 +27,6 @@ import {
   popupDelCard,
 } from "../constants/constants.js";
 
-
-
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-63",
   headers: {
@@ -54,11 +52,11 @@ validatorPopupEditForm.enableValidation();
 validatorPopupAddForm.enableValidation();
 validatorPopupAvatarForm.enableValidation();
 
-const openImage = new PopupWithImage(popupOpenImage);
-openImage.setEventListeners();
+const PopupOpenPicture = new PopupWithImage(popupOpenImage);
+PopupOpenPicture.setEventListeners();
 
 function handleCardClick(item) {
-  openImage.open(item);
+  PopupOpenPicture.open(item);
 }
 
 const userInfo = new UserInfo({
@@ -144,7 +142,7 @@ function createCard(item) {
         api
           .deleteCard(item._id)
           .then(() => {
-            cardElement.basketCard();
+            cardElement.deleteOldCard();
             deleteCardForm.close();
           })
           .catch((err) => {
