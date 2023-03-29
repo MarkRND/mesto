@@ -3,9 +3,9 @@ export default class PopupWithForm extends Popup {
   constructor(selectorPopup, callbackSubmitForm) {
     super(selectorPopup);
     this._callbackSubmitForm = callbackSubmitForm;
-
     this._form = this._popup.querySelector(".popup__form");
     this._inputList = this._form.querySelectorAll(".popup__input");
+    
   }
 
   setInputValues(item) {
@@ -28,6 +28,7 @@ export default class PopupWithForm extends Popup {
     this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._callbackSubmitForm(this._getInputValues());
+      this.close();
     });
   }
 
@@ -35,4 +36,6 @@ export default class PopupWithForm extends Popup {
     super.close();
     this._form.reset();
   }
+
+  
 }
